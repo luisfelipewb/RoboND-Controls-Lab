@@ -40,9 +40,9 @@ class PIDController:
 
     def update(self, measured_value, timestamp):
 
-        delta_time = self.last_timestamp - timestamp
+        delta_time = timestamp - self.last_timestamp
         if delta_time == 0:
-            pass
+            return 0
 
         error = self.target - measured_value
 
@@ -63,6 +63,10 @@ class PIDController:
         i = self.ki * self.error_sum
         d = self.kd * (delta_error / delta_time)
 
+        #print ("delta_time " + str(delta_time))
+        #print ("error " + str(error))
+        #print ("self.error_sum " + str(self.error_sum))
+        #print ("P" + str(p) + " I" + str(i) + " D" + str(d))
         u = p + i + d
 
         return u
